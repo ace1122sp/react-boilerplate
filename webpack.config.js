@@ -15,24 +15,29 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     filename: 'client.bundle.js',
   },
+  devServer: {
+    inline: true,
+    contentBase: path.resolve(__dirname, 'public'),
+    port: 3000,
+  },
   module: {
     rules: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
+          { loader: 'style-loader' },
           {
             loader: 'css-loader',
             options: {
               modules: {
-                mode: 'local',
+                mode: 'global',
                 exportLocalsConvention: 'dashes',
               },
             },
           },
-          'sass-loader',
-          'postcss-loader',
+          { loader: 'postcss-loader' },
+          { loader: 'sass-loader' },
         ],
       },
       {
